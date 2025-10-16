@@ -1,0 +1,149 @@
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #f7f7f7;
+  --muted: #666666;
+  --accent: #f86d0c;
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --button-text: #ffffff;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Dark theme when html.dark is present */
+html.dark {
+  --bg: #0b0b0b;           /* page background (nearly black) */
+  --text: #ffffff;         /* main text */
+  --card: #141414;         /* card / form background (dark grey) */
+  --muted: #9aa0a6;        /* muted text */
+  --accent: #f86d0c;       /* primary button color */
+  --input-bg: #0f1720;     /* input background */
+  --input-border: #26303a; /* input border */
+  --button-text: #ffffff;
+  --shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Apply theme globally */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+/* Container / form surface */
+.scout-form {
+  background: var(--card);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+  color: var(--text);
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+/* Layout helpers */
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* Inputs / selects */
+input, select, textarea {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text);
+  outline: none;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+input::placeholder {
+  color: var(--muted);
+}
+
+/* Buttons */
+button {
+  background: var(--accent);
+  color: var(--button-text);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 80ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+button:hover { transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+
+button[aria-pressed="true"] {
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+}
+
+/* Ensure form fits on small screens */
+.scout-form { max-width: 980px; margin: 12px; }
+
+*{box-sizing:border-box}
+
+/* use theme variable for main text so dark mode inverts correctly */
+body{
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  margin:0;
+  color:var(--text); /* <-- use theme variable so headings update in dark mode */
+}
+
+/* app container and header */
+.app-root{max-width:900px; margin:28px auto; padding:18px}
+header h1{margin:0 0 6px; color:var(--text)} /* title (e.g. "2583 Scouting App") */
+
+/* submissions headings and list items inherit theme color */
+.submissions h2, .submissions h3 { color: var(--text); }
+.submissions ul{list-style:none; padding-left:0; margin:8px 0 0}
+.submissions li{
+  padding:8px;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  color:var(--text); /* ensure submission lines are visible in dark mode */
+  background: transparent;
+}
+.submissions li .meta{font-size:12px; color:var(--muted)}
+
+/* reuse card background / shadow from variables */
+.scout-form, .submissions{
+  background:var(--card);
+  padding:12px;
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  margin-bottom:12px;
+}
+
+/* form specifics */
+.scout-form .row{display:flex; gap:8px; margin-bottom:8px}
+.scout-form label{flex:1; display:flex; flex-direction:column; font-size:14px}
+.scout-form input, .scout-form select{
+  padding:8px;
+  border-radius:6px;
+  border:1px solid var(--input-border);
+  background:var(--input-bg);
+  color:var(--text);
+}
+.scout-form .actions{text-align:right}
+
+/* buttons */
+button{background:var(--accent); color:var(--button-text); border:none; padding:8px 12px; border-radius:6px; cursor:pointer}
+button:disabled{opacity:0.5; cursor:not-allowed}
+.submissions .sub-actions{display:flex; gap:8px; margin-bottom:8px}
+
+/* saved message styling — ensure visible in dark mode */
+.saved-message, .note, .export-hint {
+  color: var(--text);
+  font-size: 13px;
+  margin-top: 8px;
+}
