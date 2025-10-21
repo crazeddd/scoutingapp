@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const initial = {
   team: '',
@@ -6,7 +6,7 @@ const initial = {
   startPos: 'Middle',
   alliance: 'Red',
 
-  // Autonomous (numbers for counts)
+  // Autonomous
   movedInAuto: false,
   coralScoredL1Auto: 0,
   coralScoredL2Auto: 0,
@@ -16,9 +16,9 @@ const initial = {
   algaeScoredProcessorAuto: 0,
   intentionallyRemovedAlgaeAuto: false,
 
-  // Teleop (numbers for counts)
+  // Teleop 
   intentionallyRemovedAlgaeTeleop: false,
-  pickupLocationTeleop: 'Floor', // Floor / Barge / Processor / Other
+  pickupLocationTeleop: 'Floor',
   coralScoredL1Tele: 0,
   coralScoredL2Tele: 0,
   coralScoredL3Tele: 0,
@@ -62,17 +62,6 @@ export default function ScoutForm({ onSubmit }) {
 
   return (
     <form className="scout-form" onSubmit={submit}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-        <h3 style={{ margin: 0 }}>Scout Entry</h3>
-        <button
-          type="button"
-          onClick={toggleDark}
-          aria-pressed={dark}
-          title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-        >
-          {dark ? 'Light Mode' : 'Dark Mode'}
-        </button>
-      </div>
 
       {/* Pre-match */}
       <div className="row">
@@ -102,133 +91,110 @@ export default function ScoutForm({ onSubmit }) {
       </div>
 
       {/* Autonomous */}
-      <fieldset style={{ marginBottom: 8, padding: 8 }}>
-        <legend style={{ fontWeight: 600 }}>Autonomous</legend>
-        <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+
+      <div class="form-header">
+        Auto
+      </div>
+
+      <div className="row">
+        <label class="checkbox">
+          <input type="checkbox" name="intentionallyRemovedAlgaeAuto" checked={form.intentionallyRemovedAlgaeAuto} onChange={update} />
+          Intentionally removed algae (auto)?
+        </label>
+        <label class="checkbox">
           <input type="checkbox" name="movedInAuto" checked={form.movedInAuto} onChange={update} />
           Moved in Autonomous?
         </label>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}>
-          <label>
-            Coral scored L1 (auto)
-            <input type="number" name="coralScoredL1Auto" value={form.coralScoredL1Auto} onChange={update} min="0" />
-          </label>
-          <label>
-            Coral scored L2 (auto)
-            <input type="number" name="coralScoredL2Auto" value={form.coralScoredL2Auto} onChange={update} min="0" />
-          </label>
-          <label>
-            Coral scored L3 (auto)
-            <input type="number" name="coralScoredL3Auto" value={form.coralScoredL3Auto} onChange={update} min="0" />
-          </label>
-          <label>
-            Coral scored L4 (auto)
-            <input type="number" name="coralScoredL4Auto" value={form.coralScoredL4Auto} onChange={update} min="0" />
-          </label>
-        </div>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}>
-          <label>
-            Algae scored in Barge (auto)
-            <input type="number" name="algaeScoredBargeAuto" value={form.algaeScoredBargeAuto} onChange={update} min="0" />
-          </label>
-          <label>
-            Algae scored in Processor (auto)
-            <input type="number" name="algaeScoredProcessorAuto" value={form.algaeScoredProcessorAuto} onChange={update} min="0" />
-          </label>
-          <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <input type="checkbox" name="intentionallyRemovedAlgaeAuto" checked={form.intentionallyRemovedAlgaeAuto} onChange={update} />
-            Intentionally removed algae (auto)?
-          </label>
-        </div>
-      </fieldset>
-
-      {/* Teleop */}
-      <fieldset style={{ marginBottom: 8, padding: 8 }}>
-        <legend style={{ fontWeight: 600 }}>Teleop</legend>
-
-        <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <input type="checkbox" name="intentionallyRemovedAlgaeTeleop" checked={form.intentionallyRemovedAlgaeTeleop} onChange={update} />
-          Intentionally removed algae in Teleop?
-        </label>
-
-        <label style={{ marginTop: 8 }}>
-          Pickup location in teleop
-          <select name="pickupLocationTeleop" value={form.pickupLocationTeleop} onChange={update}>
-            <option>Floor</option>
-            <option>Barge</option>
-            <option>Processor</option>
-            <option>Other</option>
-          </select>
-        </label>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}>
-          <label>
-            Coral scored L1 (teleop)
-            <input type="number" name="coralScoredL1Tele" value={form.coralScoredL1Tele} onChange={update} min="0" />
-          </label>
-          <label>
-            Coral scored L2 (teleop)
-            <input type="number" name="coralScoredL2Tele" value={form.coralScoredL2Tele} onChange={update} min="0" />
-          </label>
-          <label>
-            Coral scored L3 (teleop)
-            <input type="number" name="coralScoredL3Tele" value={form.coralScoredL3Tele} onChange={update} min="0" />
-          </label>
-          <label>
-            Coral scored L4 (teleop)
-            <input type="number" name="coralScoredL4Tele" value={form.coralScoredL4Tele} onChange={update} min="0" />
-          </label>
-        </div>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}>
-          <label>
-            Algae scored in Barge (teleop)
-            <input type="number" name="algaeScoredBargeTele" value={form.algaeScoredBargeTele} onChange={update} min="0" />
-          </label>
-          <label>
-            Algae scored in Processor (teleop)
-            <input type="number" name="algaeScoredProcessorTele" value={form.algaeScoredProcessorTele} onChange={update} min="0" />
-          </label>
-        </div>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}>
-          <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <input type="checkbox" name="playedDefenseTeleop" checked={form.playedDefenseTeleop} onChange={update} />
-            Played defense during teleop?
-          </label>
-          <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <input type="checkbox" name="robotWasDefended" checked={form.robotWasDefended} onChange={update} />
-            Robot was defended by the other alliance?
-          </label>
-        </div>
-      </fieldset>
-
-      {/* Endgame */}
-      <fieldset style={{ marginBottom: 8, padding: 8 }}>
-        <legend style={{ fontWeight: 600 }}>Endgame</legend>
-
-        <label>
-          End position during endgame
-          <select name="endPositionEndgame" value={form.endPositionEndgame} onChange={update}>
-            <option>Left</option>
-            <option>Middle</option>
-            <option>Right</option>
-            <option>Other</option>
-          </select>
-        </label>
-
-        <label style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 8 }}>
-          <input type="checkbox" name="died" checked={form.died} onChange={update} />
-          Died?
-        </label>
-      </fieldset>
+      </div>
 
       <div className="row">
-        <label style={{ flex: 1 }}>
-          Additional Notes
-          <input name="notes" value={form.notes} onChange={update} placeholder="Add notes here" />
+        <label>
+          Coral scored L1 (auto)
+          <input type="number" name="coralScoredL1Auto" value={form.coralScoredL1Auto} onChange={update} min="0" />
+        </label>
+        <label>
+          Coral scored L2 (auto)
+          <input type="number" name="coralScoredL2Auto" value={form.coralScoredL2Auto} onChange={update} min="0" />
+        </label>
+        <label>
+          Coral scored L3 (auto)
+          <input type="number" name="coralScoredL3Auto" value={form.coralScoredL3Auto} onChange={update} min="0" />
+        </label>
+        <label>
+          Coral scored L4 (auto)
+          <input type="number" name="coralScoredL4Auto" value={form.coralScoredL4Auto} onChange={update} min="0" />
+        </label>
+      </div>
+
+      <div className='row'>
+        <label>
+          Algae scored in Barge (auto)
+          <input type="number" name="algaeScoredBargeAuto" value={form.algaeScoredBargeAuto} onChange={update} min="0" />
+        </label>
+        <label>
+          Algae scored in Processor (auto)
+          <input type="number" name="algaeScoredProcessorAuto" value={form.algaeScoredProcessorAuto} onChange={update} min="0" />
+        </label>
+      </div>
+
+      {/* Teleop */}
+
+      <div class="form-header">
+        Teleop
+      </div>
+
+      <label class="checkbox">
+        <input type="checkbox" name="intentionallyRemovedAlgaeTeleop" checked={form.intentionallyRemovedAlgaeTeleop} onChange={update} />
+        Intentionally removed algae in Teleop?
+      </label>
+
+      <label>
+        Pickup location in teleop
+        <select name="pickupLocationTeleop" value={form.pickupLocationTeleop} onChange={update}>
+          <option>Floor</option>
+          <option>Processor</option>
+          <option>Both</option>
+        </select>
+      </label>
+
+      <div className='row'>
+        <label>
+          Coral scored L1 (teleop)
+          <input type="number" name="coralScoredL1Tele" value={form.coralScoredL1Tele} onChange={update} min="0" />
+        </label>
+        <label>
+          Coral scored L2 (teleop)
+          <input type="number" name="coralScoredL2Tele" value={form.coralScoredL2Tele} onChange={update} min="0" />
+        </label>
+        <label>
+          Coral scored L3 (teleop)
+          <input type="number" name="coralScoredL3Tele" value={form.coralScoredL3Tele} onChange={update} min="0" />
+        </label>
+        <label>
+          Coral scored L4 (teleop)
+          <input type="number" name="coralScoredL4Tele" value={form.coralScoredL4Tele} onChange={update} min="0" />
+        </label>
+      </div>
+
+      <div className='row'>
+        <label>
+          Algae scored in Barge (teleop)
+          <input type="number" name="algaeScoredBargeTele" value={form.algaeScoredBargeTele} onChange={update} min="0" />
+        </label>
+        <label>
+          Algae scored in Processor (teleop)
+          <input type="number" name="algaeScoredProcessorTele" value={form.algaeScoredProcessorTele} onChange={update} min="0" />
+        </label>
+      </div>
+
+      <div className='row'>
+        <label class="checkbox">
+          <input type="checkbox" name="playedDefenseTeleop" checked={form.playedDefenseTeleop} onChange={update} />
+          Played defense during teleop?
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="robotWasDefended" checked={form.robotWasDefended} onChange={update} />
+          Robot was defended by the other alliance?
         </label>
       </div>
 

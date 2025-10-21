@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ScoutForm from './components/ScoutForm';
 import SubmissionsList from './components/SubmissionsList';
 import InstallPrompt from './components/InstallPrompt';
@@ -40,11 +40,11 @@ export default function App() {
     } catch { }
   }, [submissions]);
 
-  function toggleDark() {
+  const toggleDark = () => {
     setDark(d => !d);
   }
 
-  function handleAdd(entry) {
+  const handleAdd = (entry) => {
     setSubmissions(s => [entry, ...s]);
   }
 
