@@ -1,149 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root {
-  --bg: #ffffff;
+  --bg: #eef0f5;
   --text: #111111;
-  --card: #f7f7f7;
+  --card: #ffffff;
   --muted: #666666;
-  --accent: #f86d0c;
+  --accent: #FB5607;
   --input-bg: #ffffff;
-  --input-border: #cccccc;
+  --input-border: rgba(24, 24, 25, 0.15);
+  --border: rgba(24, 24, 25, 0.15);
   --button-text: #ffffff;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 /* Dark theme when html.dark is present */
 html.dark {
-  --bg: #0b0b0b;           /* page background (nearly black) */
-  --text: #ffffff;         /* main text */
-  --card: #141414;         /* card / form background (dark grey) */
-  --muted: #9aa0a6;        /* muted text */
-  --accent: #f86d0c;       /* primary button color */
-  --input-bg: #0f1720;     /* input background */
-  --input-border: #26303a; /* input border */
+  --bg: #0b0b0b;
+  /* page background (nearly black) */
+  --text: #ffffff;
+  /* main text */
+  --card: #141414;
+  /* card / form background (dark grey) */
+  --muted: #9aa0a6;
+  /* muted text */
+  --accent: #f86d0c;
+  /* primary button color */
+  --input-bg: #0f1720;
+  /* input background */
+  --input-border: #26303a;
+  /* input border */
   --button-text: #ffffff;
-  --shadow: 0 6px 18px rgba(0,0,0,0.6);
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 /* Apply theme globally */
-html, body {
+html,
+body {
   height: 100%;
-  margin: 0;
+  width: 100%;
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: "Inter";
+  scroll-behavior: smooth;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
-/* Container / form surface */
-.scout-form {
-  background: var(--card);
-  border-radius: 8px;
-  padding: 12px;
-  box-shadow: var(--shadow);
-  color: var(--text);
-  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+p,
+strong {
+  font-size: 14px;
+}
+
+svg {
+  height: 1.5lh;
+  width: 1.5lh;
+  fill: var(--text);
+}
+
+.form-header {
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+#toggle {
+  background: transparent;
 }
 
 /* Layout helpers */
 .row {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 8px;
 }
-label {
-  display: flex;
-  flex-direction: column;
-  font-size: 13px;
-  color: var(--text);
-}
 
 /* Inputs / selects */
-input, select, textarea {
-  padding: 8px;
-  border-radius: 4px;
+input,
+select,
+textarea {
+  font-size: 14px;
+  all: unset;
+  padding: 8px 10px;
+  border-radius: 8px;
   border: 1px solid var(--input-border);
   background: var(--input-bg);
   color: var(--text);
-  outline: none;
   transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
 }
+
+select {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+  padding-right: 35px;
+}
+
+.checkbox {
+  flex: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 20px auto;
+  gap: 14px;
+}
+
+input[type="checkbox"] {
+  display: grid;
+  place-content: center;
+  appearance: none;
+  width: 1px;
+  height: 5px;
+  border-radius: 6px;
+  aspect-ratio: 1/1;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1rem 1rem var(--accent);
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:not(:checked)::before {
+  transform: scale(0);
+}
+
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 2px 0 var(--accent);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  height: 50px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
 input::placeholder {
   color: var(--muted);
 }
 
 /* Buttons */
 button {
-  background: var(--accent);
-  color: var(--button-text);
+  background: none;
+  color: var(--text);
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 8px 15px;
+  border-radius: 8px;
   cursor: pointer;
   transition: transform 80ms ease, box-shadow 120ms ease, background-color 120ms ease;
+
+  &.primary {
+    background: var(--accent);
+    color: var(--button-text);
+  }
+
+  &.secondary {
+    border: 1px solid var(--border);
+  }
 }
-button:hover { transform: translateY(-1px); }
-button:active { transform: translateY(0); }
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
 
 button[aria-pressed="true"] {
-  box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
 }
 
-/* Ensure form fits on small screens */
-.scout-form { max-width: 980px; margin: 12px; }
-
-*{box-sizing:border-box}
-
-/* use theme variable for main text so dark mode inverts correctly */
-body{
-  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
-  background:var(--bg);
-  margin:0;
-  color:var(--text); /* <-- use theme variable so headings update in dark mode */
+.app-root {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 18px;
 }
 
-/* app container and header */
-.app-root{max-width:900px; margin:28px auto; padding:18px}
-header h1{margin:0 0 6px; color:var(--text)} /* title (e.g. "2583 Scouting App") */
-
-/* submissions headings and list items inherit theme color */
-.submissions h2, .submissions h3 { color: var(--text); }
-.submissions ul{list-style:none; padding-left:0; margin:8px 0 0}
-.submissions li{
-  padding:8px;
-  border-bottom:1px solid rgba(0,0,0,0.06);
-  color:var(--text); /* ensure submission lines are visible in dark mode */
-  background: transparent;
-}
-.submissions li .meta{font-size:12px; color:var(--muted)}
-
-/* reuse card background / shadow from variables */
-.scout-form, .submissions{
-  background:var(--card);
-  padding:12px;
-  border-radius:8px;
-  box-shadow:var(--shadow);
-  margin-bottom:12px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* form specifics */
-.scout-form .row{display:flex; gap:8px; margin-bottom:8px}
-.scout-form label{flex:1; display:flex; flex-direction:column; font-size:14px}
-.scout-form input, .scout-form select{
-  padding:8px;
-  border-radius:6px;
-  border:1px solid var(--input-border);
-  background:var(--input-bg);
-  color:var(--text);
+header h1 {
+  margin: 0 0 6px;
 }
-.scout-form .actions{text-align:right}
+
+.submissions-grid .header {
+  background: rgba(238, 240, 245, 0.5);
+  padding: 2px;
+  border-radius: 8px;
+}
+
+.submissions-grid .items {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 415px;
+}
+
+.submissions-grid .items .item,
+.submissions-grid .header {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.submissions-grid .items div:nth-child(even) {
+  background: rgba(238, 240, 245, 0.4);
+  border-radius: 8px;
+}
+
+.scout-form,
+.submissions {
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 20px;
+  border: 1px solid var(--border);
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.scout-form button {
+  width: 100%;
+}
+
+label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  /* font-weight: 800; */
+  color: var(--text);
+}
+
+.sub-actions svg {
+  height: 1.2lh;
+  width: 1.2lh;
+}
 
 /* buttons */
-button{background:var(--accent); color:var(--button-text); border:none; padding:8px 12px; border-radius:6px; cursor:pointer}
-button:disabled{opacity:0.5; cursor:not-allowed}
-.submissions .sub-actions{display:flex; gap:8px; margin-bottom:8px}
 
-/* saved message styling — ensure visible in dark mode */
-.saved-message, .note, .export-hint {
-  color: var(--text);
-  font-size: 13px;
-  margin-top: 8px;
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed
+}
+
+.submissions .sub-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.banner {
+  position: fixed;
+  display: flex;
+  gap: 25px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.banner-btns {
+  display: flex;
+  gap: 10px;
 }

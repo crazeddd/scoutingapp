@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const initial = {
   team: '',
@@ -37,20 +37,6 @@ const initial = {
 
 export default function ScoutForm({ onSubmit }) {
   const [form, setForm] = useState(initial);
-  const [dark, setDark] = useState(() => {
-    try {
-      return localStorage.getItem('scout-dark') === 'true';
-    } catch {
-      return false;
-    }
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark);
-    try {
-      localStorage.setItem('scout-dark', dark);
-    } catch {}
-  }, [dark]);
 
   function update(e) {
     const { name, value, type, checked } = e.target;
@@ -72,10 +58,6 @@ export default function ScoutForm({ onSubmit }) {
     }
     onSubmit(entry);
     setForm(initial);
-  }
-
-  function toggleDark() {
-    setDark(d => !d);
   }
 
   return (
@@ -250,8 +232,35 @@ export default function ScoutForm({ onSubmit }) {
         </label>
       </div>
 
-      <div className="actions" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <button type="submit">Save</button>
+      {/* Endgame */}
+
+      <div className="form-header">
+        Endgame / Other
+      </div>
+
+      <label>
+        End position
+        <select name="endPositionEndgame" value={form.endPositionEndgame} onChange={update}>
+          <option>Not Parked</option>
+          <option>Parked</option>
+          <option>Deep Climb</option>
+          <option>Shallow Climb</option>
+          <option>Failed Climb</option>
+        </select>
+      </label>
+
+      <label className="checkbox">
+        <input type="checkbox" name="died" checked={form.died} onChange={update} />
+        Died?
+      </label>
+
+      <label>
+        Additional Notes
+        <textarea name="notes" value={form.notes} onChange={update} placeholder="Add notes here" />
+      </label>
+
+      <div>
+        <button type="submit" className='primary'>Save</button>
       </div>
     </form>
   );

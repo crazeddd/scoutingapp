@@ -1,54 +1,38 @@
 import React from 'react';
 
-function toCSV(rows) {
-  if (!rows || rows.length === 0) return '';
-  const keys = Object.keys(rows[0]);
-  const lines = [keys.join(',')];
-  for (const r of rows) {
-    const vals = keys.map(k => {
-      const v = r[k] ?? '';
-      const s = String(v).replace(/"/g, '""');
-      return `"${s}"`;
-    });
-    lines.push(vals.join(','));
-  }
-  return lines.join('\n');
-}
-
 export default function SubmissionsList({ submissions = [], onClear, onExport }) {
-  function downloadCSV() {
-    const csv = toCSV(submissions);
-    if (!csv) {
-      alert('No submissions to export');
-      return;
-    }
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'scouting_submissions.csv';
-    a.click();
-    URL.revokeObjectURL(url);
-    if (typeof onExport === 'function') onExport();
-  }
+  const trash_can = (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z" /></svg>);
 
   return (
     <section className="submissions">
-      <h2>Submissions ({submissions.length})</h2>
-      <div className="sub-actions">
-        <button onClick={downloadCSV} disabled={submissions.length === 0}>Export CSV</button>
-        <button onClick={onClear} disabled={submissions.length === 0}>Clear</button>
-      </div>
+      <header>
+        <h2>Submissions ({submissions.length})</h2>
+        <div className="sub-actions">
+          <button onClick={onClear} disabled={submissions.length === 0}>{trash_can}</button>
+          {/* <button onClick={downloadCSV} disabled={submissions.length === 0}>Export CSV</button> */}
+          <button onClick={onExport} disabled={submissions.length === 0} className="primary">Upload</button>
+        </div>
+      </header>
 
-      <ul>
-        {submissions.map((s, idx) => (
-          <li key={s.timestamp + '-' + idx}>
-            <strong>Team {s.team}</strong> — match {s.match} — auto {s.autoPieces} / tele {s.telePieces} — climb {s.climb}
-            <div className="notes">{s.notes}</div>
-            <div className="meta">{new Date(s.timestamp).toLocaleString()} • {s.alliance} • {s.startPos}</div>
-          </li>
-        ))}
-      </ul>
+      <div className="submissions-grid">
+        <div className="header">
+          <p>Team #</p>
+          <p>Match #</p>
+          <p>Alliance</p>
+          <p>Time </p>
+        </div>
+        <div className="items">
+          {submissions.map((s, idx) => (
+            <div key={s.timestamp + '-' + idx} className="item">
+              <p>{s.team}</p>
+              <p className="muted">{s.match}</p>
+              <p className="muted">{s.alliance}</p>
+              <p className="muted">{new Date(s.timestamp).toLocaleTimeString()}</p>
+              {/* <div className="meta">{new Date(s.timestamp).toLocaleString()} • {s.alliance} • {s.startPos}</div> */}
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
