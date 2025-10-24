@@ -19,13 +19,13 @@ html.dark {
   /* page background (nearly black) */
   --text: #ffffff;
   /* main text */
-  --card: #141414;
+  --card: #202020;
   /* card / form background (dark grey) */
   --muted: #9aa0a6;
   /* muted text */
   --accent: #f86d0c;
   /* primary button color */
-  --input-bg: #0f1720;
+  --input-bg: #171717;
   /* input background */
   --input-border: #26303a;
   /* input border */
@@ -256,12 +256,12 @@ header h1 {
   border-radius: 10px;
 }
 
-.scout-form button {
-  width: 100%;
-}
-
 .scout-form {
   border-left: 3px solid var(--accent);
+}
+
+.scout-form button {
+  width: 100%;
 }
 
 label {
