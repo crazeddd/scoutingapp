@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const initial = {
+  scoutName: "",
   team: "",
   match: "",
   startPos: "Middle",
@@ -51,16 +52,21 @@ export default function ScoutForm({ onSubmit }) {
     setForm((f) => ({ ...f, [name]: v }));
   }
 
+  function changeCounter(key, delta) {
+    setForm((f) => ({ ...f, [key]: Math.max(0, (f[key] || 0) + delta) }));
+  }
+
   function submit(e) {
     e.preventDefault();
     const entry = {
       ...form,
+      scoutName: String(form.scoutName).trim(),
       team: String(form.team).trim(),
       match: String(form.match).trim(),
       timestamp: new Date().toISOString(),
     };
-    if (!entry.team || !entry.match) {
-      alert("Please fill out Team and Match fields");
+    if (!entry.team || !entry.match || !entry.scoutName) {
+      alert("Please fill out team, match and name fields");
       return;
     }
     onSubmit(entry);
@@ -70,6 +76,15 @@ export default function ScoutForm({ onSubmit }) {
   return (
     <form className="scout-form" onSubmit={submit}>
       {/* Pre-match */}
+      <label>
+        Name
+        <input
+          name="scoutName"
+          value={form.scoutName}
+          onChange={update}
+          placeholder="Your Name"
+        />
+      </label>
       <div className="row">
         <label>
           Match #
@@ -92,9 +107,9 @@ export default function ScoutForm({ onSubmit }) {
         <label>
           Starting pos
           <select name="startPos" value={form.startPos} onChange={update}>
-            <option>Left</option>
+            <option>Proccessor Side</option>
             <option>Middle</option>
-            <option>Right</option>
+            <option>Not Proccessor Side</option>
           </select>
         </label>
         <label>
@@ -132,68 +147,158 @@ export default function ScoutForm({ onSubmit }) {
       </div>
 
       <div className="row">
-        <label>
+        <label style={{ flex: "48%" }}>
           Coral scored L1 (auto)
-          <input
-            type="number"
-            name="coralScoredL1Auto"
-            value={form.coralScoredL1Auto}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL1Auto", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL1Auto"
+              value={form.coralScoredL1Auto}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL1Auto", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <label>
+
+        <label style={{ flex: "48%" }}>
           Coral scored L2 (auto)
-          <input
-            type="number"
-            name="coralScoredL2Auto"
-            value={form.coralScoredL2Auto}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL2Auto", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL2Auto"
+              value={form.coralScoredL2Auto}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL2Auto", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <label>
+        <label style={{ flex: "48%" }}>
           Coral scored L3 (auto)
-          <input
-            type="number"
-            name="coralScoredL3Auto"
-            value={form.coralScoredL3Auto}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL3Auto", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL3Auto"
+              value={form.coralScoredL3Auto}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL3Auto", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <label>
+
+        <label style={{ flex: "48%" }}>
           Coral scored L4 (auto)
-          <input
-            type="number"
-            name="coralScoredL4Auto"
-            value={form.coralScoredL4Auto}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL4Auto", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL4Auto"
+              value={form.coralScoredL4Auto}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              onClick={() => changeCounter("coralScoredL4Auto", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
       </div>
 
       <div className="row">
         <label>
           Algae scored in Barge (auto)
-          <input
-            type="number"
-            name="algaeScoredBargeAuto"
-            value={form.algaeScoredBargeAuto}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("algaeScoredBargeAuto", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="algaeScoredBargeAuto"
+              value={form.algaeScoredBargeAuto}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("algaeScoredBargeAuto", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
         <label>
           Algae scored in Processor (auto)
-          <input
-            type="number"
-            name="algaeScoredProcessorAuto"
-            value={form.algaeScoredProcessorAuto}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("algaeScoredProcessorAuto", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="algaeScoredProcessorAuto"
+              value={form.algaeScoredProcessorAuto}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("algaeScoredProcessorAuto", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
       </div>
 
@@ -225,68 +330,164 @@ export default function ScoutForm({ onSubmit }) {
       </label>
 
       <div className="row">
-        <label>
+        <label style={{ flex: "48%" }}>
           Coral scored L1 (teleop)
-          <input
-            type="number"
-            name="coralScoredL1Tele"
-            value={form.coralScoredL1Tele}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("coralScoredL1Tele", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL1Tele"
+              value={form.coralScoredL1Tele}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("coralScoredL1Tele", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <label>
+        <label style={{ flex: "48%" }}>
           Coral scored L2 (teleop)
-          <input
-            type="number"
-            name="coralScoredL2Tele"
-            value={form.coralScoredL2Tele}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("coralScoredL2Tele", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL2Tele"
+              value={form.coralScoredL2Tele}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("coralScoredL2Tele", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <label>
+        <label style={{ flex: "48%" }}>
           Coral scored L3 (teleop)
-          <input
-            type="number"
-            name="coralScoredL3Tele"
-            value={form.coralScoredL3Tele}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("coralScoredL3Tele", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL3Tele"
+              value={form.coralScoredL3Tele}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("coralScoredL3Tele", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <label>
+        <label style={{ flex: "48%" }}>
           Coral scored L4 (teleop)
-          <input
-            type="number"
-            name="coralScoredL4Tele"
-            value={form.coralScoredL4Tele}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("coralScoredL4Tele", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="coralScoredL4Tele"
+              value={form.coralScoredL4Tele}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("coralScoredL4Tele", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
       </div>
 
       <div className="row">
         <label>
           Algae scored in Barge (teleop)
-          <input
-            type="number"
-            name="algaeScoredBargeTele"
-            value={form.algaeScoredBargeTele}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("algaeScoredBargeTele", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="algaeScoredBargeTele"
+              value={form.algaeScoredBargeTele}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("algaeScoredBargeTele", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
         <label>
           Algae scored in Processor (teleop)
-          <input
-            type="number"
-            name="algaeScoredProcessorTele"
-            value={form.algaeScoredProcessorTele}
-            onChange={update}
-            min="0"
-          />
+          <div className="number-input">
+            <button
+              type="button"
+              className="decrement"
+              onClick={() => changeCounter("algaeScoredProcessorTele", -1)}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              name="algaeScoredProcessorTele"
+              value={form.algaeScoredProcessorTele}
+              onChange={update}
+              min="0"
+            />
+            <button
+              type="button"
+              className="increment"
+              onClick={() => changeCounter("algaeScoredProcessorTele", 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
       </div>
 

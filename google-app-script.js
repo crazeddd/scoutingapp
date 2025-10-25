@@ -15,7 +15,7 @@ function doPost(e) {
     data.forEach((submission) => {
       var newRow = [
         new Date(),                               // A. Timestamp
-        // data.scoutName,                        // B. Scout Name (Optional: Add this if you send it)
+        data.scoutName,                        // B. Scout Name (Optional: Add this if you send it)
         submission.team,                          // C. Team
         submission.match,                         // D. Match
         submission.alliance,                      // E. Alliance

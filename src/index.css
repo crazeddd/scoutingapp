@@ -9,28 +9,23 @@
   --input-bg: #ffffff;
   --input-border: rgba(24, 24, 25, 0.15);
   --border: rgba(24, 24, 25, 0.15);
+  --row: rgba(238, 240, 245, 0.4);
+  --row-header: rgba(238, 240, 245, 0.5);
   --button-text: #ffffff;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 /* Dark theme when html.dark is present */
 html.dark {
   --bg: #0b0b0b;
-  /* page background (nearly black) */
   --text: #ffffff;
-  /* main text */
   --card: #202020;
-  /* card / form background (dark grey) */
   --muted: #9aa0a6;
-  /* muted text */
   --accent: #f86d0c;
-  /* primary button color */
   --input-bg: #171717;
-  /* input background */
   --input-border: #26303a;
-  /* input border */
   --button-text: #ffffff;
-  --shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  --row: rgba(26, 25, 25, 0.4);
+  --row-header: rgba(15, 15, 15, 0.5);
 }
 
 * {
@@ -217,7 +212,7 @@ header h1 {
 }
 
 .submissions-grid .header {
-  background: rgba(238, 240, 245, 0.5);
+  background: var(--row-header);
   padding: 2px;
   border-radius: 8px;
 }
@@ -240,7 +235,7 @@ header h1 {
 }
 
 .submissions-grid .items div:nth-child(even) {
-  background: rgba(238, 240, 245, 0.4);
+  background: var(--row);
   border-radius: 8px;
 }
 
@@ -342,4 +337,31 @@ button:disabled {
     max-height: 300px;
     overflow-y: auto;
   }
+}
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 2fr 1fr 2fr;
+  flex: 100%;
+}
+
+.number-input input {
+  border: none;
+  width: 100%;
+  text-align: center;
+  border-radius: 0;
 }

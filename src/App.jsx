@@ -73,12 +73,14 @@ export default function App() {
 
       setLoading(true);
 
-      const res = await fetch(process.env.REACT_APP_GOOGLE_SCRIPT_URL, {
+      const res = await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
         method: "POST",
         body: JSON.stringify(submissions),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(err => {
+        throw new Error("Failed to parse response JSON, possibly due to a network error or invalid URL.");
+      });
 
       setLoading(false);
 
@@ -91,7 +93,8 @@ export default function App() {
       }
     } catch (err) {
       setLoading(false);
-      console.log("Uh oh: ", err);
+      console.error(err);
+      alert("An unexpected error occurred: " + err.message);
     }
   };
 
