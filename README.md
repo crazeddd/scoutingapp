@@ -29,5 +29,5 @@ This scouting app directly uploads your team's scouting data to a master sheet u
 For this project you should use node v20 or above.
 ## 
 
-![img 1](/imgs/app2.png)
-![img 2](/imgs/app.png)
+![img 1](/readme-imgs/app2.png)
+![img 2](/readme-imgs/app.png)
