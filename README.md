@@ -1,22 +1,29 @@
 # 2583 Scouting App
 
 ### What does it do?
-This scouting app directly uploads your team's scouting data to a master sheet using Google's app scripts. Additonally it can be installed locally as a PWA for comps where you have poor connection.
+This is a simple FRC scouting app, it's served as a [PWA](https://www.google.com/search?q=pwa) so you can use it during comps with little or no connection. All data is uploaded directly to Google sheets and is locally stored until then. 
 
-## Setup
+Note that the data sent to sheets is simply dumped in and you must handle the formatting yourself.
+
+### Todo:
+
+ - [ ] Create basic auth for bad requests
+ - [ ] Add push notifications?
+ - [ ] Redo icon
+ - [ ] Redo UI/UX
+
+## Deployment Setup
 
  - Clone the repo
- - In Google Sheets create a new spreadsheet and add a sheet called "Raw Data"
+ - In Google Sheets create a new spreadsheet and add a new sheet called "Raw Data"
  - Navigate to: Extensions -> App Scripts
- - Create a new script using the code provided in google-app-script.js
+ - Create a new script using the code provided in app-script.js
  - Deploy the script (using the web app option)
- - Create and configure the .env file with your web app url:
+ - Create and configure an .env file with your web app url:
     ```
-    .env
-
-    REACT_APP_GOOGLE_SCRIPT_URL= # your app script url here
+    VITE_GOOGLE_SCRIPT_URL= #your url here
     ```
- - Nagivate to the project root and run the install and then build command `npm i && npm run build`
+ - Nagivate to the project root and run the install and build command `npm i && npm run build`
  - Deploy this build using a host of your choice
  - Done!
 
@@ -24,7 +31,7 @@ This scouting app directly uploads your team's scouting data to a master sheet u
 
  - Clone repo
  - Run `npm i` to install dependencies
- - Then run `npm start` to start the dev server
+ - Then run `npm run dev` to start the dev server
 
 For this project you should use node v20 or above.
 ## 
