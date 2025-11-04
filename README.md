@@ -1,7 +1,7 @@
 # 2583 Scouting App
 
 ### What does it do?
-This is a simple FRC scouting app, it's served as a <a target="_blank" href="https://www.google.com/search?q=pwa">PWA</a> so you can use it during comps with little or no connection. All data is uploaded directly and foramatted in Google sheets (nice right?) and is locally stored until then. 
+This is a simple FRC scouting app, it's served as a <a target="_blank" href="https://www.google.com/search?q=pwa">PWA</a> so you can use it during comps with little or no connection. All data is uploaded directly and formatted in Google sheets and is locally stored until then. 
 
 ### Todo:
 
