@@ -5,6 +5,8 @@ function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
 
+    if (data.secret != "YOUR_SECRET") throw new Error("Invalid Secret: " + data.secret);
+
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(SHEET_NAME);
 
@@ -12,10 +14,10 @@ function doPost(e) {
       throw new Error("Sheet '" + SHEET_NAME + "' not found. Please create it.");
     }
 
-    data.forEach((submission) => {
+    data.submission.forEach((submission) => {
       var newRow = [
         new Date(),                               // A. Timestamp
-        submission.scoutName,                     // B. Scout Name
+        data.scoutName,                           // B. Scout Name
         submission.team,                          // C. Team
         submission.match,                         // D. Match
         submission.alliance,                      // E. Alliance

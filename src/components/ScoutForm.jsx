@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const initial = {
-  scoutName: "",
   team: "",
   match: "",
   startPos: "Middle",
@@ -76,15 +75,6 @@ export default function ScoutForm({ onSubmit }) {
   return (
     <form className="scout-form" onSubmit={submit}>
       {/* Pre-match */}
-      <label>
-        Name
-        <input
-          name="scoutName"
-          value={form.scoutName}
-          onChange={update}
-          placeholder="Your Name"
-        />
-      </label>
       <div className="row">
         <label>
           Match #
